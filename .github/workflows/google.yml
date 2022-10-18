@@ -1,0 +1,23 @@
+name: Venom Tests
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
+
+jobs:
+  run-tests:
+    permissions:
+        contents: 'read'
+        id-token: 'write'
+    name: "Run tests"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+    - name: "Authenticate to Google Cloud"
+      id: 'auth'
+      uses: 'google-github-actions/auth@v0.8.1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
